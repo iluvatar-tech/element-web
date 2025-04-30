@@ -403,19 +403,7 @@ const SpacePanel: React.FC = () => {
                         ref={ref}
                         aria-label={_t("common|spaces")}
                     >
-                        <UserMenu isPanelCollapsed={isPanelCollapsed}>
-                            <AccessibleButton
-                                className={classNames("mx_SpacePanel_toggleCollapse", { expanded: !isPanelCollapsed })}
-                                onClick={() => setPanelCollapsed(!isPanelCollapsed)}
-                                title={isPanelCollapsed ? _t("action|expand") : _t("action|collapse")}
-                                caption={
-                                    <KeyboardShortcut
-                                        value={{ ctrlOrCmdKey: true, shiftKey: true, key: "d" }}
-                                        className="mx_SpacePanel_Tooltip_KeyboardShortcut"
-                                    />
-                                }
-                            />
-                        </UserMenu>
+
                         <Droppable droppableId="top-level-spaces">
                             {(provided, snapshot) => (
                                 <InnerSpacePanel
@@ -433,6 +421,19 @@ const SpacePanel: React.FC = () => {
                         <ThreadsActivityCentre displayButtonLabel={!isPanelCollapsed} />
 
                         <QuickSettingsButton isPanelCollapsed={isPanelCollapsed} />
+                        <UserMenu isPanelCollapsed={isPanelCollapsed}>
+                            <AccessibleButton
+                                className={classNames("mx_SpacePanel_toggleCollapse", { expanded: !isPanelCollapsed })}
+                                onClick={() => setPanelCollapsed(!isPanelCollapsed)}
+                                title={isPanelCollapsed ? _t("action|expand") : _t("action|collapse")}
+                                caption={
+                                    <KeyboardShortcut
+                                        value={{ ctrlOrCmdKey: true, shiftKey: true, key: "d" }}
+                                        className="mx_SpacePanel_Tooltip_KeyboardShortcut"
+                                    />
+                                }
+                            />
+                        </UserMenu>
                     </nav>
                 </DragDropContext>
             )}
