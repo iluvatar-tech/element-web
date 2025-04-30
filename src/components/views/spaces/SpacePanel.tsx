@@ -68,6 +68,7 @@ import { UIComponent } from "../../../settings/UIFeature";
 import AccessibleButton from "../elements/AccessibleButton";
 import { Landmark, LandmarkNavigation } from "../../../accessibility/LandmarkNavigation";
 import { KeyboardShortcut } from "../settings/KeyboardShortcut";
+import QuickSettingsButton from "./QuickSettingsButton";
 
 const useSpaces = (): [Room[], MetaSpace[], Room[], SpaceKey] => {
     const invites = useEventEmitterState<Room[]>(SpaceStore.instance, UPDATE_INVITED_SPACES, () => {
@@ -419,8 +420,7 @@ const SpacePanel: React.FC = () => {
                         </Droppable>
 
                         {/*<ThreadsActivityCentre displayButtonLabel={!isPanelCollapsed} />*/}
-
-                        {/*<QuickSettingsButton isPanelCollapsed={isPanelCollapsed} />*/}
+                        <QuickSettingsButton isPanelCollapsed={isPanelCollapsed} />
                         <UserMenu isPanelCollapsed={isPanelCollapsed}>
                             <AccessibleButton
                                 className={classNames("mx_SpacePanel_toggleCollapse", { expanded: !isPanelCollapsed })}
