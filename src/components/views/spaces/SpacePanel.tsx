@@ -420,7 +420,8 @@ const SpacePanel: React.FC = () => {
                         </Droppable>
 
                         {/*<ThreadsActivityCentre displayButtonLabel={!isPanelCollapsed} />*/}
-                        <QuickSettingsButton isPanelCollapsed={isPanelCollapsed} />
+
+                        {/*<QuickSettingsButton isPanelCollapsed={isPanelCollapsed} />*/}
                         <UserMenu isPanelCollapsed={isPanelCollapsed}>
                             <AccessibleButton
                                 className={classNames("mx_SpacePanel_toggleCollapse", { expanded: !isPanelCollapsed })}
