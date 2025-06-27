@@ -17,6 +17,7 @@ import NotificationsIcon from "@vector-im/compound-design-tokens/assets/web/icon
 import VerifiedIcon from "@vector-im/compound-design-tokens/assets/web/icons/verified";
 import ErrorIcon from "@vector-im/compound-design-tokens/assets/web/icons/error-solid";
 import PublicIcon from "@vector-im/compound-design-tokens/assets/web/icons/public";
+import EditIcon from "@vector-im/compound-design-tokens/assets/web/icons/edit-solid";
 import { JoinRule, type Room } from "matrix-js-sdk/src/matrix";
 import { type ViewRoomOpts } from "@matrix-org/react-sdk-module-api/lib/lifecycles/RoomViewLifecycle";
 
@@ -59,10 +60,14 @@ export default function RoomHeader({
     room,
     additionalButtons,
     oobData,
+    onWorkspaceToggle,
+    showWorkspacePanel,
 }: {
     room: Room;
     additionalButtons?: ViewRoomOpts["buttons"];
     oobData?: IOOBData;
+    onWorkspaceToggle?: () => void;
+    showWorkspacePanel?: boolean;
 }): JSX.Element {
     const client = useMatrixClientContext();
 
@@ -382,6 +387,21 @@ export default function RoomHeader({
                                 aria-label={_t("notifications|enable_prompt_toast_title")}
                             >
                                 <ToggleableIcon Icon={NotificationsIcon} phase={RightPanelPhases.NotificationPanel} />
+                            </IconButton>
+                        </Tooltip>
+                    )}
+
+                    {onWorkspaceToggle && (
+                        <Tooltip label="Toggle workspace">
+                            <IconButton
+                                onClick={(evt) => {
+                                    evt.stopPropagation();
+                                    onWorkspaceToggle();
+                                }}
+                                aria-label="Toggle workspace"
+                                className={showWorkspacePanel ? "mx_RoomHeader_button_active" : ""}
+                            >
+                                <EditIcon />
                             </IconButton>
                         </Tooltip>
                     )}

@@ -56,6 +56,7 @@ import { LegacyCallHandlerEvent } from "../../LegacyCallHandler";
 import defaultDispatcher from "../../dispatcher/dispatcher";
 import * as Rooms from "../../Rooms";
 import MainSplit from "./MainSplit";
+import VerticalSplit from "./VerticalSplit";
 import RightPanel from "./RightPanel";
 import RoomScrollStateStore, { type ScrollState } from "../../stores/RoomScrollStateStore";
 import WidgetEchoStore from "../../stores/WidgetEchoStore";
@@ -74,6 +75,7 @@ import RoomPreviewCard from "../views/rooms/RoomPreviewCard";
 import RoomUpgradeWarningBar from "../views/rooms/RoomUpgradeWarningBar";
 import AuxPanel from "../views/rooms/AuxPanel";
 import RoomHeader from "../views/rooms/RoomHeader/RoomHeader";
+import WorkspacePanel from "../views/rooms/WorkspacePanel";
 import { type IOOBData, type IThreepidInvite } from "../../stores/ThreepidInviteStore";
 import EffectsOverlay from "../views/elements/EffectsOverlay";
 import { containsEmoji } from "../../effects/utils";
@@ -248,6 +250,7 @@ export interface IRoomState {
     promptAskToJoin: boolean;
 
     viewRoomOpts: ViewRoomOpts;
+    showWorkspacePanel: boolean;
 }
 
 interface LocalRoomViewProps {
@@ -434,11 +437,18 @@ export class RoomView extends React.Component<IRoomProps, IRoomState> {
             promptAskToJoin: false,
             viewRoomOpts: { buttons: [] },
             isRoomEncrypted: null,
+            showWorkspacePanel: false,
         };
     }
 
     private onIsResizing = (resizing: boolean): void => {
         this.setState({ resizing });
+    };
+
+    private onWorkspaceToggle = (): void => {
+        this.setState((prevState) => ({
+            showWorkspacePanel: !prevState.showWorkspacePanel,
+        }));
     };
 
     private onWidgetStoreUpdate = (): void => {
@@ -2646,8 +2656,21 @@ export class RoomView extends React.Component<IRoomProps, IRoomState> {
                                 <RoomHeader
                                     room={this.state.room}
                                     additionalButtons={this.state.viewRoomOpts.buttons}
+                                    onWorkspaceToggle={this.onWorkspaceToggle}
+                                    showWorkspacePanel={this.state.showWorkspacePanel}
                                 />
-                                {mainSplitBody}
+                                <VerticalSplit
+                                    resizeNotifier={this.props.resizeNotifier}
+                                    collapsed={!this.state.showWorkspacePanel}
+                                    workspacePanel={
+                                        this.state.showWorkspacePanel && this.state.roomId ? (
+                                            <WorkspacePanel roomId={this.state.roomId} />
+                                        ) : undefined
+                                    }
+                                    roomId={this.state.roomId || ""}
+                                >
+                                    {mainSplitBody}
+                                </VerticalSplit>
                             </div>
                         </MainSplit>
                     </ErrorBoundary>

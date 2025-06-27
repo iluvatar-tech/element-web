@@ -259,6 +259,7 @@ const SpaceMessageComposer: React.FC<{room: Room, resizeNotifier: ResizeNotifier
         promptAskToJoin: false,
         viewRoomOpts: { buttons: [] },
         isRoomEncrypted: null,
+        showWorkspacePanel: false,
         tombstone: undefined
     }), []);
 

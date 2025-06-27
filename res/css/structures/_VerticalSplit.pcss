@@ -1,0 +1,46 @@
+/*
+Copyright 2024 New Vector Ltd.
+
+SPDX-License-Identifier: AGPL-3.0-only OR GPL-3.0-only OR LicenseRef-Element-Commercial
+Please see LICENSE files in the repository root for full details.
+*/
+
+.mx_VerticalSplit {
+    display: flex;
+    flex-direction: row;
+    min-width: 0;
+    min-height: 0;
+    height: 100%;
+    width: 100%;
+}
+
+.mx_VerticalSplit_MainContent {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.mx_VerticalSplit_WorkspacePanel {
+    border-left: 1px solid var(--cpd-color-border-subtle);
+    background-color: var(--cpd-color-bg-subtle-secondary);
+}
+
+.mx_VerticalSplit > .mx_VerticalSplit_WorkspacePanel {
+    &:hover .mx_ResizeHandle--horizontal::before {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-150%, -50%);
+
+        height: 64px;
+        width: 4px;
+        border-radius: 4px;
+
+        content: "";
+
+        background-color: var(--cpd-color-icon-primary);
+        opacity: 0.8;
+    }
+}
